@@ -1,0 +1,61 @@
+#include "stdio.h"
+#include "math.h"
+#include "stdlib.h"
+int JumpSearch(int Arr[], int Size , int Key){
+    int Step = cbrt(Size);
+    int previous = 0;
+
+    if(Step%2 == 0){
+        Step = Step + 3;
+    }
+
+    int j = Step;
+
+    while(Arr[Step-1]<Key){
+        previous = Step ;
+        Step = Step + j ;
+
+        if(Step-1>Size){
+            return -1;
+        }
+    }
+
+    if(Arr[Step-1] == Key ){
+        return Step-1;
+    }
+
+    int midPoint = (Step-1) - (j/2);
+
+    if(Arr[midPoint]>Key){
+        for(int a = previous ; a <midPoint; a++){
+            if(Arr[a] == Key){
+                return a;
+            }
+        }
+    } else{
+        for(int b= midPoint ; b <(Step-1); b++){
+            if( Arr[b] == Key){
+                return b;
+            }
+        }
+    }
+
+    return -1;
+
+}
+
+int main(){
+
+    int Arr[]= {1,3,5,7,9,13,24,56,78,89,90,122,134,234,567};
+    int Size = sizeof(Arr)/sizeof(Arr[0]);
+    int Key = 567 ;
+
+    int index_number = JumpSearch(Arr,Size,Key);
+    if(index_number != -1){
+        printf("We Found : %d \nAt Index Number : %d", Key ,index_number);
+    } else{
+        printf("Not Found %d" , Key);
+    }
+    
+    return 0;
+}
