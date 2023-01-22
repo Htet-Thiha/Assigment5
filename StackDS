@@ -1,0 +1,100 @@
+#include "stdio.h"
+#include "stdlib.h"
+
+#define MaxStack 20
+
+struct Stack{
+
+    int data[MaxStack];
+    int Top;
+
+};
+
+
+typedef struct Stack st;
+
+
+void CreatEmptyStack(st* myStack){
+
+    myStack->Top = -1;
+
+};
+
+
+int isStackisFull(st *mystack){
+
+    if(mystack->Top == MaxStack-1){
+        return 1;
+    }
+    return 0;
+
+}
+int isStackisEmpty(st *mystack){
+
+    if(mystack->Top == -1){
+        return 1;
+    }
+    return 0;
+
+}
+
+void PushData(st *mystack,int value){
+
+    if(isStackisFull(mystack)){
+        printf("Stack is Full!");
+    }
+    mystack->Top++;
+    mystack->data[mystack->Top] = value;
+
+}
+
+void PopData(st *mystack){
+
+    if(isStackisEmpty(mystack)){
+        printf("Stack is Empty!");
+    }
+    printf("Pop From Stack : %d\n", mystack->data[mystack->Top]);
+    mystack->Top--;
+
+}
+
+int ShowData(st *mystack){
+
+    int temp_index = mystack->Top;
+    if(mystack->Top == -1){
+        printf("Stack is empty, there is nothing to show.\n");
+    }
+    for(int a=temp_index; a>-1; a--){
+        printf("Data at index %d is %d \n",a,mystack->data[a]);
+    }
+
+}
+
+int main(){
+
+    st *myStack =(st*)malloc(sizeof(st));
+
+    CreatEmptyStack(myStack);
+
+    PushData(myStack,10);
+    PushData(myStack,9);
+    PushData(myStack,8);
+    PushData(myStack,7);
+    PushData(myStack,6);
+    PushData(myStack,5);
+    PushData(myStack,4);
+
+    ShowData(myStack);
+
+    PopData(myStack);
+    PopData(myStack);
+    PopData(myStack);
+    PopData(myStack);
+    PopData(myStack);
+    PopData(myStack);
+    PopData(myStack);
+
+    ShowData(myStack);
+
+    return 0;
+}
